@@ -1,0 +1,5 @@
+---
+- name: Configure web server
+  hosts: all
+  become: true
+- import_playbook: playbooks/test.yml
