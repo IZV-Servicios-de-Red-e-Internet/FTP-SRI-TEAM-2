@@ -14,4 +14,4 @@ tierra	IN	A	192.168.56.103
 mercurio IN	A	192.168.56.101
 venus	IN	A	192.168.56.102
 marte	IN	A 	192.168.56.104
-ftp		IN	CNAME	tierra			
+ftp		IN	CNAME	mercurio			
