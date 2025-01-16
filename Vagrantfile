@@ -5,6 +5,7 @@ def create_client(config, name, ip, host_port)
       ip: ip
     client.vm.hostname = name
     client.vm.network "forwarded_port", guest: 22, host: host_port, id: 'ssh'
+    config.ssh.insert_key = false
   end
 end
 

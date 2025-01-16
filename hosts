@@ -1,0 +1,8 @@
+[mercurio]
+apache2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2201
+[venus]
+apache2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2202
+[tierra]
+apache2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2203
+[marte]
+apache2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2204
