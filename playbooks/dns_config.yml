@@ -1,0 +1,43 @@
+---
+- name: Insercion de archivos
+  hosts: tierra
+  gather_facts: false
+  become: true
+  tasks:
+
+    - name: Instalamos paquete bind9 y bind9-dnsutils
+      apt:
+        name: 
+          - bind9 
+          - bind9-dnsutils
+        state: present
+        update_cache: yes
+
+    - name: Copiar configuracion zona inversa
+      copy:
+        src: ../dns/db.56.168.192
+        dest: /var/lib/bind/
+
+    - name: Copiar configuracion zona directa
+      copy:
+        src: ../dns/db.sistema.sol
+        dest: /var/lib/bind/
+        
+    - name: Copiar fichero named
+      copy:
+        src: ../dns/named.txt
+        dest: /etc/default/named
+
+    - name: Copiar fichero named.conf.local
+      copy:
+        src: ../dns/named.conf.local
+        dest: /etc/bind/named.conf.local
+
+    - name: Copiar fichero named.conf.options
+      copy:
+        src: ../dns/named.conf.options
+        dest: /etc/bind/named.conf.options
+
+    - name: Restart bind9
+      service: name=bind9 state=restarted
+
