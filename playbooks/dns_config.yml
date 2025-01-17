@@ -5,13 +5,15 @@
   become: true
   tasks:
 
-    - name: Instalamos paquete bind9 y bind9-dnsutils
+    - name: Install bind9
       apt:
-        name: 
-          - bind9 
+        name:
+          - bind9
           - bind9-dnsutils
         state: present
         update_cache: yes
+      notify:
+        - Start and enable bind9 service
 
     - name: Copiar configuracion zona inversa
       copy:
@@ -38,6 +40,13 @@
         src: ../dns/named.conf.options
         dest: /etc/bind/named.conf.options
 
-    - name: Restart bind9
-      service: name=bind9 state=restarted
+  handlers:
+    - name: Start and enable bind9
+      ansible.builtin.service:
+        name: bind9
+        state: started
+        enabled: yes
+
+
+
 
