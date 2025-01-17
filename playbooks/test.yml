@@ -1,7 +1,7 @@
 ---
 - name: Test Ansible connections
   hosts: all
-  gather_facts: false
+  become: true
   tasks:
     - name: Ping all hosts to test connectivity
       ansible.builtin.ping:
