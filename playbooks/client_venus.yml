@@ -1,0 +1,10 @@
+- name: Clientes Resolvs
+  hosts: venus
+  gather_facts: false
+  become: true
+  tasks:
+
+    - name: Copiar configuracion resolv.conf
+      copy:
+        src: ../dns/dns_config_clients/venus/resolv.conf
+        dest: /etc/resolv.conf

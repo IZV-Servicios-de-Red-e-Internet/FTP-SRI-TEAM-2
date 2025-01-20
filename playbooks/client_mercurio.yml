@@ -1,0 +1,10 @@
+- name: Clientes Resolvs
+  hosts: mercurio
+  gather_facts: false
+  become: true
+  tasks:
+
+    - name: Copiar configuracion resolv.conf
+      copy:
+        src: ../dns/dns_config_clients/mercurio/resolv.conf
+        dest: /etc/resolv.conf
