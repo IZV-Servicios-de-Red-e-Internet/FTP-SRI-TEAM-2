@@ -3,3 +3,4 @@
   hosts: all
   become: true
 - import_playbook: playbooks/test.yml
+- import_playbook: playbooks/ftp_config.yml
