@@ -18,6 +18,7 @@ sudo adduser pepe
 mkdir -p /home/pepe/pruebasFTP
 cd /home/pepe/pruebasFTP
 ```
+
 ![Paso3](./imagen2.png)
 ---
 
@@ -27,6 +28,7 @@ Añade el contenido que quieras al archivo:
 ```bash
 echo "Este es el contenido de datos1.txt" > datos1.txt
 ```
+
 ![Paso4](./imagen3.png)
 ![Paso5](./imagen3-2.png)
 ---
@@ -40,6 +42,7 @@ pftp ftp.cica.es
 Cuando se soliciten credenciales, utiliza las siguientes:
 - **Usuario:** `anonymous`
 - **Contraseña:** tu dirección de correo electrónico o presiona Enter.
+
 ![Paso6](./imagen4.png)
 ---
 
@@ -50,6 +53,7 @@ Dentro de la sesión FTP, ejecuta:
 pwd
 ```
 Esto mostrará el directorio activo en el servidor.
+
 ![Paso7](./imagen5.png)
 ---
 
@@ -59,6 +63,7 @@ Para ver el directorio local activo, usa:
 ```bash
 lpwd
 ```
+
 ![Paso8](./imagen6.png)
 ---
 
@@ -68,6 +73,7 @@ Lista los archivos en el directorio actual del servidor:
 ```bash
 ls
 ```
+
 ![Paso9](./imagen7.png)
 ---
 
@@ -78,6 +84,7 @@ Lista los archivos locales del directorio activo:
 !ls
 ```
 (En Windows, usa `!dir` en lugar de `!ls`.)
+
 ![Paso10](./imagen8.png)
 ---
 
@@ -87,6 +94,7 @@ Para descargar un archivo específico del servidor al cliente, utiliza:
 ```bash
 get /pub/check
 ```
+
 ![Paso11](./imagen9.png)
 ---
 
@@ -96,6 +104,7 @@ Lista los archivos en tu directorio local para verificar que el archivo se haya 
 ```bash
 !ls
 ```
+
 ![Paso12](./imagen10.png)
 ---
 
@@ -110,6 +119,7 @@ Luego, verifica que se haya creado correctamente:
 ```bash
 ls pruebasFTP
 ```
+
 ![Paso13](./imagen11.png)
 ---
 
@@ -120,6 +130,7 @@ Sube el archivo al servidor con:
 put datos1.txt pruebasFTP/datos1.txt
 ```
 Si recibes un error como `550 Permission denied`, significa que no tienes permisos para subir archivos al servidor.
+
 ![Paso14](./imagen12.png)
 ---
 
@@ -134,5 +145,6 @@ O alternativamente:
 ```bash
 quit
 ```
+
 ![Paso15](./imagen13.png)
 ---
