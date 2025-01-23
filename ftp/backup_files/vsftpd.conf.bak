@@ -33,7 +33,6 @@ anon_other_write_enable=NO
 local_enable=YES
 write_enable=YES
 allow_writeable_chroot=YES
-chroot_list_file=/etc/vsftpd.chroot_list
 local_umask=077
 #11. Maria is not in chroot, the rest of the local users are
 chroot_local_user=YES

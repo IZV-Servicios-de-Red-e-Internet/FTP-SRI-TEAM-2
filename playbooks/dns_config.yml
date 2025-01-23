@@ -13,7 +13,7 @@
         state: present
         update_cache: yes
       notify:
-        - Start and enable bind9 service
+        - Start and enable bind9
 
     - name: Copiar configuracion zona inversa
       copy:
@@ -27,7 +27,7 @@
         
     - name: Copiar fichero named
       copy:
-        src: ../dns/named.txt
+        src: ../dns/named
         dest: /etc/default/named
 
     - name: Copiar fichero named.conf.local
