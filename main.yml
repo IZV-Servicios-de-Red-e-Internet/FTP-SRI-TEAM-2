@@ -2,10 +2,10 @@
 - name: Configure web server
   hosts: all
   become: true
-- import_playbook: playbooks/test.yml
-- import_playbook: playbooks/ftp_config.yml
+#- import_playbook: playbooks/test.yml
+#- import_playbook: playbooks/ftp_config.yml
 - import_playbook: playbooks/dns_config.yml
-- import_playbook: playbooks/client_venus.yml
-- import_playbook: playbooks/client_mercurio.yml
-- import_playbook: playbooks/client_marte.yml
+#- import_playbook: playbooks/client_venus.yml
+#- import_playbook: playbooks/client_mercurio.yml
+- import_playbook: playbooks/clients_dns_config.yml
 

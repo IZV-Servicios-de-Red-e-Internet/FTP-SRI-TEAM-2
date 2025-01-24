@@ -1,0 +1,12 @@
+- name: Clientes Resolvs
+  hosts: clients
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Ensure the target file exists with desired content
+      copy:
+        dest: /etc/resolv.conf
+        content: |
+          nameserver 192.168.56.103
+          search sistema.sol
+          domain sistema.sol

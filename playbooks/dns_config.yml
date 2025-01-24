@@ -39,7 +39,14 @@
       copy:
         src: ../dns/named.conf.options
         dest: /etc/bind/named.conf.options
-
+    - name: Resolv.conf configuration
+      copy:
+        dest: /etc/resolv.conf
+        content: |
+          nameserver localhost
+          nameserver 8.8.8.8
+          search sistema.sol
+          domain sistema.sol
   handlers:
     - name: Start and enable bind9
       ansible.builtin.service:

@@ -6,3 +6,7 @@ venus.sistema.sol ansible_ssh_host=127.0.0.1 ansible_ssh_port=2202
 tierra.sistema.sol ansible_ssh_host=127.0.0.1 ansible_ssh_port=2203
 [marte]
 marte.sistema.sol ansible_ssh_host=127.0.0.1 ansible_ssh_port=2204
+[clients:children]
+mercurio
+venus
+marte
