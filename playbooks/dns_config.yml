@@ -13,45 +13,55 @@
         state: present
         update_cache: yes
       notify:
-        - Start and enable bind9
+        - Restart and enable bind9
 
     - name: Copiar configuracion zona inversa
       copy:
         src: ../dns/db.56.168.192
         dest: /var/lib/bind/
+      notify:
+        - Restart and enable bind9
 
     - name: Copiar configuracion zona directa
       copy:
         src: ../dns/db.sistema.sol
         dest: /var/lib/bind/
+      notify:
+        - Restart and enable bind9
         
     - name: Copiar fichero named
       copy:
         src: ../dns/named
         dest: /etc/default/named
+      notify:
+        - Restart and enable bind9
 
     - name: Copiar fichero named.conf.local
       copy:
         src: ../dns/named.conf.local
         dest: /etc/bind/named.conf.local
+      notify:
+        - Restart and enable bind9
 
     - name: Copiar fichero named.conf.options
       copy:
         src: ../dns/named.conf.options
         dest: /etc/bind/named.conf.options
+      notify:
+        - Restart and enable bind9
+        
     - name: Resolv.conf configuration
       copy:
         dest: /etc/resolv.conf
         content: |
-          nameserver localhost
-          nameserver 8.8.8.8
+          nameserver 192.168.56.103
           search sistema.sol
           domain sistema.sol
   handlers:
-    - name: Start and enable bind9
+    - name: Restart and enable bind9
       ansible.builtin.service:
         name: bind9
-        state: started
+        state: restarted
         enabled: yes
 
 

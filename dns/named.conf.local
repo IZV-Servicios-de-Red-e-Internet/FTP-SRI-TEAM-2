@@ -8,7 +8,7 @@
 
 zone "sistema.sol" {
   type master;
-  file "/etc/bind/db.sistema.sol";
+  file "/var/lib/bind/db.sistema.sol";
 };
 
 zone "56.168.192.in-addr.arpa" {
