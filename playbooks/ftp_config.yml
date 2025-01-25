@@ -19,6 +19,12 @@
         remote_src: yes
       notify:
         - Start and enable vsftpd
+    - name: Add ftp mapping for mercurio to find itself as ftp.sistema.sol
+      ansible.builtin.blockinfile:
+        path: /etc/hosts
+        block: |
+          192.168.56.101   ftp mercurio
+      become: true
     - name: Copy configuration file for vsftpd
       copy:
         src: ../ftp/config_files/vsftpd.conf

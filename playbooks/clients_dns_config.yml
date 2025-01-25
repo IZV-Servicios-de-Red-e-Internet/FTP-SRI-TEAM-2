@@ -9,4 +9,3 @@
         content: |
           nameserver 192.168.56.103
           search sistema.sol
-          domain sistema.sol
