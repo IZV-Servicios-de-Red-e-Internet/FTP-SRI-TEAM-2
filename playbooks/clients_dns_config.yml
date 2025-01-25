@@ -3,7 +3,7 @@
   gather_facts: false
   become: true
   tasks:
-    - name: Ensure the target file exists with desired content
+    - name: Configure DNS settings for the clients
       copy:
         dest: /etc/resolv.conf
         content: |
