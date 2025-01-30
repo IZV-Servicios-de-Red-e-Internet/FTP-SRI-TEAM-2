@@ -47,12 +47,3 @@ s
 2. **Configuración de DNS**: Los archivos y carpetas en `dns/` contienen la configuración necesaria.
 3. **Configuración de FTP**: Los archivos y carpetas en `ftp/` incluyen configuraciones específicas para el servidor FTP.
 4. **Pruebas**: Las pruebas se encuentran en `tests/` y `pruebas_comandos_FTP/`.
-
-## Próximos Pasos
-
-1. Añadir detalles específicos sobre cada archivo y su función.
-2. Documentar los pasos detallados para ejecutar el proyecto.
-
----
-
-Cualquier sugerencia o duda, por favor, comunícate con el equipo de desarrollo.
