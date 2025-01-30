@@ -1,0 +1,58 @@
+# Proyecto de Servidores FTP y DNS con Ansible y Vagrant
+
+Este proyecto tiene como objetivo la configuración, pruebas y documentación de servidores DNS y FTP utilizando herramientas como Ansible y Vagrant.
+
+## Contenido del Proyecto
+
+### Carpetas
+
+- **dns/**: Contiene configuraciones relacionadas con el servidor DNS, incluyendo ajustes y correcciones recientes.
+  - _Última modificación_: Fix: DNS server fixes (hace 3 días).
+
+- **ftp/**: Incluye configuraciones para el servidor FTP, asegurando su correcta implementación y seguridad.
+  - _Última modificación_: feat: secure FTP done (hace 2 días).
+
+- **images Step 3/**: Carpeta que almacena documentación gráfica y capturas de pantalla relacionadas con el tercer paso del proyecto.
+  - _Última modificación_: Step 3: Document and Screenshots (hace 1 hora).
+
+- **playbooks/**: Contiene los playbooks de Ansible que configuran y manejan los servidores FTP y DNS.
+  - _Última modificación_: feat & fix: FTP server working correctly, VagrantFile improvements (hace 2 días).
+
+- **pruebas_comandos_FTP/**: Carpeta con pruebas de comandos relacionados con el servidor FTP.
+  - _Última modificación_: fix: imágenes (hace 5 días).
+s
+- **.gitignore**: Configuración para ignorar archivos y carpetas específicos en el repositorio Git.
+  - _Última modificación_: feat: simplified DNS config of all the VMs (hace 3 días).
+
+- **Vagrantfile**: Archivo para la configuración de entornos virtualizados con Vagrant.
+  - _Última modificación_: feat & fix: FTP server working correctly, VagrantFile improvements (hace 2 días).
+
+- **ansible.cfg**: Archivo de configuración para Ansible.
+  - _Última modificación_: feat: ansible configuration done (hace 2 semanas).
+
+- **hosts**: Archivo de inventario de Ansible, que especifica los hosts que serán configurados.
+  - _Última modificación_: feat: simplified DNS config of all the VMs (hace 3 días).
+
+- **main.yml**: Playbook principal para Ansible, con tareas relacionadas con la configuración de servidores DNS y FTP.
+  - _Última modificación_: fix & feat: DNS server working, deleted unused directories (hace 2 días).
+
+- **welcome.msg**: Mensaje de bienvenida, probablemente utilizado como banner o texto informativo.
+  - _Última modificación_: Step 3: Document and Screenshots (hace 1 hora).
+
+---
+
+## Instalación y Configuración
+
+1. **Preparación del Entorno**: Se utiliza Vagrant para configurar máquinas virtuales y Ansible para la automatización de tareas.
+2. **Configuración de DNS**: Los archivos y carpetas en `dns/` contienen la configuración necesaria.
+3. **Configuración de FTP**: Los archivos y carpetas en `ftp/` incluyen configuraciones específicas para el servidor FTP.
+4. **Pruebas**: Las pruebas se encuentran en `tests/` y `pruebas_comandos_FTP/`.
+
+## Próximos Pasos
+
+1. Añadir detalles específicos sobre cada archivo y su función.
+2. Documentar los pasos detallados para ejecutar el proyecto.
+
+---
+
+Cualquier sugerencia o duda, por favor, comunícate con el equipo de desarrollo.
