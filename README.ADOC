@@ -6,44 +6,83 @@ Este proyecto tiene como objetivo la configuración, pruebas y documentación de
 
 ### Carpetas
 
-- **dns/**: Contiene configuraciones relacionadas con el servidor DNS, incluyendo ajustes y correcciones recientes.
-  - _Última modificación_: Fix: DNS server fixes (hace 3 días).
+- **[/dns](/dns/README.md)**: Contiene configuraciones relacionadas con el servidor DNS, incluyendo ajustes y correcciones recientes.
 
-- **ftp/**: Incluye configuraciones para el servidor FTP, asegurando su correcta implementación y seguridad.
-  - _Última modificación_: feat: secure FTP done (hace 2 días).
 
-- **images Step 3/**: Carpeta que almacena documentación gráfica y capturas de pantalla relacionadas con el tercer paso del proyecto.
-  - _Última modificación_: Step 3: Document and Screenshots (hace 1 hora).
+- **[/ftp](ftp/)**: Incluye configuraciones para el servidor FTP, asegurando su correcta implementación y seguridad.
+  
+- **[/playbooks](/playbooks)**: Contiene los playbooks de Ansible que configuran y manejan los servidores FTP y DNS.
 
-- **playbooks/**: Contiene los playbooks de Ansible que configuran y manejan los servidores FTP y DNS.
-  - _Última modificación_: feat & fix: FTP server working correctly, VagrantFile improvements (hace 2 días).
+- **[/pruebas_comandos_FTP](/pruebas_comandos_FTP/)**: Carpeta con pruebas de comandos relacionados con el servidor FTP.
 
-- **pruebas_comandos_FTP/**: Carpeta con pruebas de comandos relacionados con el servidor FTP.
-  - _Última modificación_: fix: imágenes (hace 5 días).
-s
+- **[/tests](/tests/)**: Archivos para pruebas y validaciones, principalmente del servidor DNS.
+
+### Archivos
+
 - **.gitignore**: Configuración para ignorar archivos y carpetas específicos en el repositorio Git.
-  - _Última modificación_: feat: simplified DNS config of all the VMs (hace 3 días).
 
-- **Vagrantfile**: Archivo para la configuración de entornos virtualizados con Vagrant.
-  - _Última modificación_: feat & fix: FTP server working correctly, VagrantFile improvements (hace 2 días).
+- **[Vagrantfile](Vagrantfile)**: Archivo para la configuración de entornos virtualizados con Vagrant.
 
 - **ansible.cfg**: Archivo de configuración para Ansible.
-  - _Última modificación_: feat: ansible configuration done (hace 2 semanas).
+```
+
+[defaults]
+#Archivo de VMs
+inventory = hosts
+#Usuario por defecto
+remote_user = vagrant
+#Ruta del archivo de claves ssh
+private_key_file = ~/.vagrant.d/insecure_private_key
+#Para evitar error de clave insegura
+host_key_checking = false
+
+```
 
 - **hosts**: Archivo de inventario de Ansible, que especifica los hosts que serán configurados.
-  - _Última modificación_: feat: simplified DNS config of all the VMs (hace 3 días).
+```
+[mercurio]
+mercurio.sistema.sol ansible_ssh_host=127.0.0.1 ansible_ssh_port=2201
+[venus]
+venus.sistema.sol ansible_ssh_host=127.0.0.1 ansible_ssh_port=2202
+[tierra]
+tierra.sistema.sol ansible_ssh_host=127.0.0.1 ansible_ssh_port=2203
+[marte]
+marte.sistema.sol ansible_ssh_host=127.0.0.1 ansible_ssh_port=2204
+[clients:children]
+mercurio
+venus
+marte
+
+```
+
 
 - **main.yml**: Playbook principal para Ansible, con tareas relacionadas con la configuración de servidores DNS y FTP.
-  - _Última modificación_: fix & feat: DNS server working, deleted unused directories (hace 2 días).
+```
+---
+- name: Configure web server
+  hosts: all
+  become: true
+#- import_playbook: playbooks/test.yml
+- import_playbook: playbooks/ftp_config.yml
+- import_playbook: playbooks/dns_config.yml
+- import_playbook: playbooks/clients_dns_config.yml
 
-- **welcome.msg**: Mensaje de bienvenida, probablemente utilizado como banner o texto informativo.
-  - _Última modificación_: Step 3: Document and Screenshots (hace 1 hora).
+
+
+```
+
 
 ---
 
 ## Instalación y Configuración
 
 1. **Preparación del Entorno**: Se utiliza Vagrant para configurar máquinas virtuales y Ansible para la automatización de tareas.
+<<<<<<< HEAD
 2. **Configuración de DNS**: Los archivos y carpetas en `dns/` contienen la configuración necesaria.
 3. **Configuración de FTP**: Los archivos y carpetas en `ftp/` incluyen configuraciones específicas para el servidor FTP.
 4. **Pruebas**: Las pruebas se encuentran en `tests/` y `pruebas_comandos_FTP/`.
+=======
+2. **Configuración de DNS**: Los archivos y carpetas en **[/dns](/dns/README.md)** contienen la configuración necesaria.
+3. **Configuración de FTP**: Los archivos y carpetas en  **[/ftp](ftp/)** incluyen configuraciones específicas para el servidor FTP.
+4. **Pruebas**: Las pruebas se encuentran en **[/tests](/tests/)** y **[/pruebas_comandos_FTP](/pruebas_comandos_FTP/)**.
+>>>>>>> 72ac0e4 (README.ADOC V2)
