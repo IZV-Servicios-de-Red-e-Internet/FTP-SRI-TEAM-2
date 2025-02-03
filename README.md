@@ -1,97 +1,134 @@
-# Proyecto de Servidores FTP y DNS con Ansible y Vagrant
+# 🚀 Proyecto de Servidores FTP y DNS con Ansible y Vagrant
 
-Este proyecto tiene como objetivo la configuración, pruebas y documentación de servidores DNS y FTP utilizando herramientas como Ansible y Vagrant y scripts bash.
+Este proyecto tiene como objetivo la configuración, pruebas y documentación de servidores **DNS** y **FTP** utilizando **Ansible**, **Vagrant** y **scripts Bash**.
 
-## Contenido del Proyecto
+---
 
-### Carpetas
+## 📂 Estructura del Proyecto
 
-- **[/dns](/dns/README.md)**: Contiene configuraciones relacionadas con el servidor DNS, incluyendo ajustes y correcciones recientes.
+### 📁 Carpetas
 
+- **[📂 /dns](/dns/README.md)** → Configuración del servidor DNS, incluyendo ajustes y correcciones recientes.
+- **[📂 /ftp](ftp/)** → Configuración del servidor FTP, asegurando su correcta implementación y seguridad.
+- **[📂 /playbooks](/playbooks)** → Playbooks de Ansible para la configuración y gestión de los servidores FTP y DNS.
+- **[📂 /pruebas_comandos_FTP](/pruebas_comandos_FTP/)** → Pruebas de comandos del servidor FTP.
+- **[📂 /tests](/tests/)** → Archivos para pruebas y validaciones, principalmente del servidor DNS.
 
-- **[/ftp](ftp/)**: Incluye configuraciones para el servidor FTP, asegurando su correcta implementación y seguridad.
-  
-- **[/playbooks](/playbooks)**: Contiene los playbooks de Ansible que configuran y manejan los servidores FTP y DNS.
+### 📜 Archivos
 
-- **[/pruebas_comandos_FTP](/pruebas_comandos_FTP/)**: Carpeta con pruebas de comandos relacionados con el servidor FTP.
+- **📄 .gitignore** → Ignora archivos y carpetas específicas en el repositorio Git.
+- **📄 [Vagrantfile](Vagrantfile)** → Configuración de entornos virtualizados con Vagrant.
+- **📄 ansible.cfg** → Archivo de configuración para Ansible.
+- **📄 hosts** → Inventario de Ansible con los hosts a configurar.
+- **📄 main.yml** → Playbook principal de Ansible para la configuración de servidores.
+- **📄 LICENSE** → Este proyecto está licenciado bajo la **MIT License**.
 
-- **[/tests](/tests/)**: Archivos para pruebas y validaciones, principalmente del servidor DNS.
+---
 
-### Archivos
+## 🖥️ Configuración de las Máquinas Virtuales
 
-- **.gitignore**: Configuración para ignorar archivos y carpetas específicos en el repositorio Git.
+El `Vagrantfile` define **cuatro máquinas virtuales** basadas en **Debian Bookworm (64 bits)**, configuradas con redes privadas y, opcionalmente, redes públicas. Se asignan recursos mínimos para optimizar el rendimiento.
 
-- **[Vagrantfile](Vagrantfile)**: Archivo para la configuración de entornos virtualizados con Vagrant.
+🔹 **Parámetros configurables:**
+- **Nombre** → Identificación y hostname de la máquina.
+- **Dirección IP** → Asignación de IP privada a cada máquina.
+- **Puerto SSH** → Redirección de puerto SSH en el host.
+- **Red Pública (Opcional)** → Conexión a la red pública a través de un puente.
+- **Memoria RAM** → 512 MB por defecto.
+- **CPU** → 1 vCPU por defecto.
+- **Configuraciones adicionales** → Desactivación de NAT DNS resolver y proxy.
 
-El Vagrantfile define cuatro máquinas virtuales basadas en Debian Bookworm (64 bits), configuradas con redes privadas y, opcionalmente, redes públicas. Cada máquina tiene una cantidad mínima de recursos asignados para optimizar el rendimiento.
+Configuración Vagrant `Vagrantfile`:
+```ruby
+# Función para crear máquinas virtuales
+ def create_client(config, name, ip, host_port, public = nil)
+  config.vm.box = "debian/bookworm64"
+  config.vm.define name do |client|
+    client.vm.network :private_network, ip: ip
+    client.vm.hostname = name
+    client.vm.network "forwarded_port", guest: 22, host: host_port, id: 'ssh'
+    if public
+      config.vm.network "public_network", bridge: "enp61s0"
+    end
+    config.ssh.insert_key = false
+  end
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "512"
+    vb.cpus = 1
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+    vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+  end
+end
 
-Configuración de las Máquinas
-
-La función create_client permite la creación dinámica de máquinas virtuales con los siguientes parámetros:
-
-Nombre: Nombre de la máquina y hostname.
-
-Dirección IP: Se asigna una IP privada a cada máquina.
-
-Puerto SSH: Se configura un puerto SSH redirigido en el host.
-
-Red Pública (Opcional): Si se indica, la máquina se conectará a la red pública a través de un puente.
-
-- **ansible.cfg**: Archivo de configuración para Ansible.
+Vagrant.configure("2") do |config|
+  create_client(config, "mercurio.sistema.sol", "192.168.56.101", 2201, "public")
+  create_client(config, "venus.sistema.sol", "192.168.56.102", 2202)
+  create_client(config, "tierra.sistema.sol", "192.168.56.103", 2203)
+  create_client(config, "marte.sistema.sol", "192.168.56.104", 2204)
+end
 ```
 
-[defaults]
-#Archivo de VMs
-inventory = hosts
-#Usuario por defecto
-remote_user = vagrant
-#Ruta del archivo de claves ssh
-private_key_file = ~/.vagrant.d/insecure_private_key
-#Para evitar error de clave insegura
-host_key_checking = false
-
-```
-
-- **hosts**: Archivo de inventario de Ansible, que especifica los hosts que serán configurados.
-```
+Ejemplo de configuración en el archivo `hosts`:
+```ini
 [mercurio]
 mercurio.sistema.sol ansible_ssh_host=127.0.0.1 ansible_ssh_port=2201
+
 [venus]
 venus.sistema.sol ansible_ssh_host=127.0.0.1 ansible_ssh_port=2202
+
 [tierra]
 tierra.sistema.sol ansible_ssh_host=127.0.0.1 ansible_ssh_port=2203
+
 [marte]
 marte.sistema.sol ansible_ssh_host=127.0.0.1 ansible_ssh_port=2204
+
 [clients:children]
 mercurio
 venus
 marte
-
 ```
 
+---
 
-- **main.yml**: Playbook principal para Ansible, con tareas relacionadas con la configuración de servidores DNS y FTP.
-```
+## ⚙️ Instalación y Configuración
+
+1️⃣ **Preparación del Entorno** → Se utiliza Vagrant para configurar las máquinas virtuales y Ansible para automatizar las tareas.
+2️⃣ **Configuración de DNS** → Se encuentra en **[📂 /dns](/dns/README.md)**.
+3️⃣ **Configuración de FTP** → Disponible en **[📂 /ftp](ftp/)**.
+4️⃣ **Ejecución de `Vagrantfile` y `main.yml`** → Despliegue automático.
+5️⃣ **Pruebas** → Se realizan en **[📂 /tests](/tests/)** y **[📂 /pruebas_comandos_FTP](/pruebas_comandos_FTP/)**.
+
+---
+
+## 🔧 Ejecución del Playbook Principal
+
+El archivo `main.yml` incluye la configuración principal:
+```yaml
 ---
 - name: Configure web server
   hosts: all
   become: true
-#- import_playbook: playbooks/test.yml
-- import_playbook: playbooks/ftp_config.yml
-- import_playbook: playbooks/dns_config.yml
-- import_playbook: playbooks/clients_dns_config.yml
-
-
+- name: FTP server provisioning
+  ansible.builtin.import_playbook: playbooks/ftp_config.yml
+- name: DNS server provisioning
+  ansible.builtin.import_playbook: playbooks/dns_config.yml
+- name: DNS server provisioning
+  ansible.builtin.import_playbook: playbooks/clients_dns_config.yml
 
 ```
 
-
 ---
 
-## Instalación y Configuración
+## 📌 Notas
 
-1. **Preparación del Entorno**: Se utiliza Vagrant para configurar máquinas virtuales y Ansible para la automatización de tareas.
-2. **Configuración de DNS**: Los archivos y carpetas en **[/dns](/dns/README.md)** contienen la configuración necesaria.
-3. **Configuración de FTP**: Los archivos y carpetas en  **[/ftp](ftp/)** incluyen configuraciones específicas para el servidor FTP.
-5. **Ejecutamos VagrantFile y main.yml**
-4. **Pruebas**: Las pruebas se encuentran en **[/tests](/tests/)** y **[/pruebas_comandos_FTP](/pruebas_comandos_FTP/)**.
+⚡ **Ansible** está configurado con los siguientes parámetros en `ansible.cfg`:
+```ini
+[defaults]
+inventory = hosts
+remote_user = vagrant
+private_key_file = ~/.vagrant.d/insecure_private_key
+host_key_checking = false
+```
+
+📡 **Para más información sobre cada componente, revisa los archivos README dentro de las carpetas correspondientes.** 🚀
+
