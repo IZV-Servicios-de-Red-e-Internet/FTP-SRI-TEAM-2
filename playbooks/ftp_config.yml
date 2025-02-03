@@ -1,84 +1,99 @@
 ---
 - name: Configure and Secure FTP Server
   hosts: mercurio
-  become: yes
+  become: true
   tasks:
     - name: Install FTP client
-      apt:
+      ansible.builtin.apt:
         name:
           - vsftpd
           - ftp
         state: present
-        update_cache: yes
+        update_cache: true
       notify:
         - Start and enable vsftpd
+
     - name: Backup the original config file for vsftpd
-      copy:
+      ansible.builtin.copy:
         src: /etc/vsftpd.conf
         dest: /vagrant/ftp/backup_files/vsftpd.conf.bak
-        remote_src: yes
+        remote_src: true
+        mode: '0644'
       notify:
         - Start and enable vsftpd
+
     - name: Add ftp mapping for mercurio to find itself as ftp.sistema.sol
       ansible.builtin.blockinfile:
         path: /etc/hosts
         block: |
           192.168.56.101   ftp mercurio
       become: true
+
     - name: Copy configuration file for vsftpd
-      copy:
+      ansible.builtin.copy:
         src: ../ftp/config_files/vsftpd.conf
         dest: /etc/
+        mode: '0644'
       notify:
         - Start and enable vsftpd
+
     - name: Copy configuration file for chroot users
-      copy:
+      ansible.builtin.copy:
         src: ../ftp/config_files/vsftpd.chroot_list
         dest: /etc/
+        mode: '0644'
       notify:
         - Start and enable vsftpd
+
     - name: Create user Luis
       ansible.builtin.user:
         name: luis
         shell: /bin/bash
-        create_home: yes
+        create_home: true
         password: "$1$Aj2VMC5x$gyQo8Bx9JWS28r6aTlHHg/"
     - name: Create user Miguel
       ansible.builtin.user:
         name: miguel
         shell: /bin/bash
-        create_home: yes
+        create_home: true
         password: "$1$Aj2VMC5x$gyQo8Bx9JWS28r6aTlHHg/"
     - name: Create user Maria
       ansible.builtin.user:
         name: maria
         shell: /bin/bash
-        create_home: yes
+        create_home: true
         password: "$1$Aj2VMC5x$gyQo8Bx9JWS28r6aTlHHg/"
     - name: Create file1.txt in Luis's home directory
-      copy:
+      ansible.builtin.copy:
         dest: /home/luis/luis1.txt
         content: |
           Luis's file number 1.
+        mode: '0644'
+
     - name: Create file2.txt in Luis's home directory
-      copy:
+      ansible.builtin.copy:
         dest: /home/luis/luis2.txt
         content: |
           Luis's file number 2.
+        mode: '0644'
+
     - name: Create file1.txt in Maria's home directory
-      copy:
+      ansible.builtin.copy:
         dest: /home/maria/maria1.txt
         content: |
           Maria's file number 1.
+        mode: '0644'
+
     - name: Create file2.txt in Maria's home directory
-      copy:
+      ansible.builtin.copy:
         dest: /home/maria/maria2.txt
         content: |
           Maria's file number 2.
+        mode: '0644'
+
   handlers:
     - name: Start and enable vsftpd
       ansible.builtin.service:
         name: vsftpd
         state: restarted
-        enabled: yes
-
+        enabled: true

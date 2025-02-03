@@ -6,64 +6,66 @@
   tasks:
 
     - name: Install bind9
-      apt:
+      ansible.builtin.apt:
         name:
           - bind9
           - bind9-dnsutils
         state: present
-        update_cache: yes
+        update_cache: true
       notify:
         - Restart and enable bind9
 
     - name: Copiar configuracion zona inversa
-      copy:
+      ansible.builtin.copy:
         src: ../dns/db.56.168.192
         dest: /var/lib/bind/
+        mode: '0644'
       notify:
         - Restart and enable bind9
 
     - name: Copiar configuracion zona directa
-      copy:
+      ansible.builtin.copy:
         src: ../dns/db.sistema.sol
         dest: /var/lib/bind/
+        mode: '0644'
       notify:
         - Restart and enable bind9
-        
+
     - name: Copiar fichero named
-      copy:
+      ansible.builtin.copy:
         src: ../dns/named
         dest: /etc/default/named
+        mode: '0644'
       notify:
         - Restart and enable bind9
 
     - name: Copiar fichero named.conf.local
-      copy:
+      ansible.builtin.copy:
         src: ../dns/named.conf.local
         dest: /etc/bind/named.conf.local
+        mode: '0644'
       notify:
         - Restart and enable bind9
 
     - name: Copiar fichero named.conf.options
-      copy:
+      ansible.builtin.copy:
         src: ../dns/named.conf.options
         dest: /etc/bind/named.conf.options
+        mode: '0644'
       notify:
         - Restart and enable bind9
-        
+
     - name: Resolv.conf configuration
-      copy:
+      ansible.builtin.copy:
         dest: /etc/resolv.conf
         content: |
           nameserver 192.168.56.103
           search sistema.sol
           domain sistema.sol
+        mode: '0644'
   handlers:
     - name: Restart and enable bind9
       ansible.builtin.service:
         name: bind9
         state: restarted
-        enabled: yes
-
-
-
-
+        enabled: true

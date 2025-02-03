@@ -4,8 +4,9 @@
   become: true
   tasks:
     - name: Configure DNS settings for the clients
-      copy:
+      ansible.builtin.copy:
         dest: /etc/resolv.conf
         content: |
           nameserver 192.168.56.103
           search sistema.sol
+        mode: '0644'

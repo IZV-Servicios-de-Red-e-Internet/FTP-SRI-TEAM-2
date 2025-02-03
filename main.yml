@@ -2,8 +2,9 @@
 - name: Configure web server
   hosts: all
   become: true
-#- import_playbook: playbooks/test.yml
-- import_playbook: playbooks/ftp_config.yml
-- import_playbook: playbooks/dns_config.yml
-- import_playbook: playbooks/clients_dns_config.yml
-
+- name: FTP server provisioning
+  ansible.builtin.import_playbook: playbooks/ftp_config.yml
+- name: DNS server provisioning
+  ansible.builtin.import_playbook: playbooks/dns_config.yml
+- name: DNS server provisioning
+  ansible.builtin.import_playbook: playbooks/clients_dns_config.yml
