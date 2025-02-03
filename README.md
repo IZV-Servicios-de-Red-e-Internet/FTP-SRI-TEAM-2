@@ -1,6 +1,6 @@
 # Proyecto de Servidores FTP y DNS con Ansible y Vagrant
 
-Este proyecto tiene como objetivo la configuración, pruebas y documentación de servidores DNS y FTP utilizando herramientas como Ansible y Vagrant.
+Este proyecto tiene como objetivo la configuración, pruebas y documentación de servidores DNS y FTP utilizando herramientas como Ansible y Vagrant y scripts bash.
 
 ## Contenido del Proyecto
 
@@ -22,6 +22,20 @@ Este proyecto tiene como objetivo la configuración, pruebas y documentación de
 - **.gitignore**: Configuración para ignorar archivos y carpetas específicos en el repositorio Git.
 
 - **[Vagrantfile](Vagrantfile)**: Archivo para la configuración de entornos virtualizados con Vagrant.
+
+El Vagrantfile define cuatro máquinas virtuales basadas en Debian Bookworm (64 bits), configuradas con redes privadas y, opcionalmente, redes públicas. Cada máquina tiene una cantidad mínima de recursos asignados para optimizar el rendimiento.
+
+Configuración de las Máquinas
+
+La función create_client permite la creación dinámica de máquinas virtuales con los siguientes parámetros:
+
+Nombre: Nombre de la máquina y hostname.
+
+Dirección IP: Se asigna una IP privada a cada máquina.
+
+Puerto SSH: Se configura un puerto SSH redirigido en el host.
+
+Red Pública (Opcional): Si se indica, la máquina se conectará a la red pública a través de un puente.
 
 - **ansible.cfg**: Archivo de configuración para Ansible.
 ```
