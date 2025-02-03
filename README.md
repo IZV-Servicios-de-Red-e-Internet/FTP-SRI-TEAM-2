@@ -79,4 +79,5 @@ marte
 1. **Preparación del Entorno**: Se utiliza Vagrant para configurar máquinas virtuales y Ansible para la automatización de tareas.
 2. **Configuración de DNS**: Los archivos y carpetas en **[/dns](/dns/README.md)** contienen la configuración necesaria.
 3. **Configuración de FTP**: Los archivos y carpetas en  **[/ftp](ftp/)** incluyen configuraciones específicas para el servidor FTP.
+5. **Ejecutamos VagrantFile y main.yml**
 4. **Pruebas**: Las pruebas se encuentran en **[/tests](/tests/)** y **[/pruebas_comandos_FTP](/pruebas_comandos_FTP/)**.
