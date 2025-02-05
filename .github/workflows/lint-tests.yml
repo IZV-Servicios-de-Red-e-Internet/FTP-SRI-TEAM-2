@@ -1,0 +1,19 @@
+name: run-ansible-lint
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  run-ansible-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@main
+        with:
+          args: "--fix=all"
+          setup_python: "true"
+          working_directory: "playbooks"
