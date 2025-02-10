@@ -116,9 +116,13 @@ ansible-playbook main.yml
 ```bash
 vagrant ssh venus.sistema.sol
 ```
+**Instala el paquete ftp**
+```bash
+sudo apt update && sudo apt install lftp -y
+```
 **Conectate al servidor ftp usando**
 ```bash
-ftp tierra.sistema.sol
+lftp tierra.sistema.sol
 ```
 **Usa las credenciales de Maria (por ej)**
 ```bash
