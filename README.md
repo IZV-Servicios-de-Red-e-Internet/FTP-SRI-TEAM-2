@@ -116,22 +116,29 @@ ansible-playbook main.yml
 ```bash
 vagrant ssh venus.sistema.sol
 ```
-**Instala el paquete ftp**
+**Instala el paquete lftp**
 ```bash
 sudo apt update && sudo apt install lftp -y
 ```
-**Conectate al servidor ftp usando**
+**Cambia los  ajustes de lftp para que funcione con certificados autofirmados**
 ```bash
-lftp tierra.sistema.sol
+echo "set ssl:verify-certificate no" >> ~/.lftprc
 ```
-**Usa las credenciales de Maria (por ej)**
+**Crea un archivo para probar la subida**
 ```bash
-user: maria
+touch file.txt
+```
+**Conectate al servidor ftp usando las credenciales de maria**
+```bash
+lftp -u maria mercurio.sistema.sol
+```
+**Usa la contraseña de maria**
+```bash
 password: usuario
 ```
 **Sube un archivo usando**
 ```bash
-put archvo.txt
+put file.txt
 ```
 ---
 
