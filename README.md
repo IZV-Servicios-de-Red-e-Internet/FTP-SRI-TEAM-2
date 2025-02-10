@@ -92,12 +92,43 @@ marte
 
 ## ⚙️ Instalación y Configuración
 
-1️⃣ **Preparación del Entorno** → Se utiliza Vagrant para configurar las máquinas virtuales y Ansible para automatizar las tareas.
-2️⃣ **Configuración de DNS** → Se encuentra en **[📂 /dns](/dns/README.md)**.
-3️⃣ **Configuración de FTP** → Disponible en **[📂 /ftp](ftp/)**.
-4️⃣ **Ejecución de `Vagrantfile` y `main.yml`** → Despliegue automático.
-5️⃣ **Pruebas** → Se realizan en **[📂 /tests](/tests/)** y **[📂 /pruebas_comandos_FTP](/pruebas_comandos_FTP/)**.
-
+1️⃣ **Preparación del Entorno** -> Descarga el repositorio.
+```bash
+git clone https://github.com/IZV-Servicios-de-Red-e-Internet/FTP-SRI-TEAM-2.git
+```
+2️⃣ **Instala los paquetes vagrant y ansible** -> Si utilizas una distribución basada en Debian:
+```bash
+sudo apt update && sudo apt install vagrant ansible -y
+```
+3️⃣ **Entra en el directorio de la descarga**
+```bash
+cd FTP-SRI-TEAM-2
+```
+4️⃣ **Ejecución de `Vagrantfile`.**
+```bash
+vagrant up
+```
+5️⃣ **Ejecución del playbook principal `main.yml`.**
+```bash
+ansible-playbook main.yml
+```
+**Pruebas** -> Entra en venus.sistema.sol**
+```bash
+vagrant ssh venus.sistema.sol
+```
+**Conectate al servidor ftp usando**
+```bash
+ftp tierra.sistema.sol
+```
+**Usa las credenciales de Maria (por ej)**
+```bash
+user: maria
+password: usuario
+```
+**Sube un archivo usando**
+```bash
+put archvo.txt
+```
 ---
 
 ## 🔧 Ejecución del Playbook Principal
